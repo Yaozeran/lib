@@ -1,66 +1,38 @@
 #pragma once
 
 
-#include <vector>
+#include <deque>
 #include <mutex>
 #include <condition_variable>
-#include <functional>
 
 
-/**
- * A blocking queue implementation using vector.
- */
 template<typename T>
 class BlockingQueue {
 
 private:
 
-    std::vector<T> queue; 
+    std::deque<T> container;
 
     std::mutex mutex;
-
-    std::condition_variable cv;
+    std::condition_variable cond;
 
 public:
 
-    BlockingQueue(/* args */) {
+    BlockingQueue() {
+
     }
-    
+
     ~BlockingQueue() {
+
     }
 
-    void push(const T& item) {
+    void push_back(T item) {
         std::lock_guard<std::mutex> lock(mutex);
-        queue.push_back(item);
-        cv.notify_one();
+        container.push_back(item);
     }
 
-    T pop() {
-        std::unique_lock<std::mutex> lock(mutex); // auto unlock when lock goes out of scope
-        cv.wait(lock, [] { return !queue.empty(); }) // block thread until an item is available
-        T item = queue.front();
-        queue.erase(queue.begin());
-        return item;
-    }
-
-    bool empty() const {
-        std::lock_guard<std::mutex> lock(mutex);
-        return queue.empty();
-    }
-
-    size_t size() const {
-        std::lock_guard<std::mutex> lock(mutex);
-        return queue.size();
-    }
-
-    void clear() {
-        std::lock_guard<std::mutex> lock(mutex);
-        queue.clear();
-    }
-
-    void waitUntilEmpty() {
+    T pop_front() {
         std::unique_lock<std::mutex> lock(mutex);
-        cv.wait(lock, [this] { return queue.empty(); });
+        return container.pop_front();
     }
 };
-
