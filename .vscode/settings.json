@@ -36,6 +36,23 @@
         "variant": "cpp",
         "cstddef": "cpp",
         "complex": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "__config": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "__locale": "cpp",
+        "bitset": "cpp",
+        "clocale": "cpp",
+        "cstdarg": "cpp",
+        "ios": "cpp",
+        "istream": "cpp",
+        "mutex": "cpp",
+        "print": "cpp",
+        "queue": "cpp",
+        "sstream": "cpp",
+        "stack": "cpp",
+        "streambuf": "cpp",
+        "functional": "cpp",
+        "thread": "cpp"
     }
 }
