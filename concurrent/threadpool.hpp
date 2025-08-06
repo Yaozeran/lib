@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <cstddef>
-#include <array>
+#include <vector>
 #include <thread>
 #include <functional>
 #include <mutex>
@@ -13,6 +13,13 @@
 #include "blockingqueue.hpp"
 
 
+/**
+ * IO intensive programs uses multithread programming, 
+ *      on the other hand, CPU intensive programs incur extra cost of switching between threads
+ * 
+ */
+
+
 template<uint16_t core, uint16_t max>
 class ThreadPool {
 
@@ -20,13 +27,14 @@ class ThreadPool {
 
 private:
 
-    std::array<std::thread, max> workers;
+    std::vector<std::thread> workers;
     
+    const size_t qlen;
     BlockingQueue<std::function<void()>> commandList;
 
 public:
 
-    ThreadPool() {
+    ThreadPool(size_t qlen) : qlen(qlen) {
 
     }
 
@@ -35,6 +43,13 @@ public:
     }
 
     void exec(std::function<void()> task) {
+        if (workers.size() <= core) {
+            workers.push_back(std::thread([this] () -> {
+                commandList.pop_front();
+            }))
+        } else if (worker.size() <= max) {
+
+        }
         commandList.push_back(task);
     }
 

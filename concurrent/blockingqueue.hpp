@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <deque>
+#include <queue>
 #include <mutex>
 #include <condition_variable>
 
@@ -11,7 +11,7 @@ class BlockingQueue {
 
 private:
 
-    std::deque<T> container;
+    std::queue<T> container;
 
     std::mutex mutex;
     std::condition_variable cond;
@@ -28,11 +28,11 @@ public:
 
     void push_back(T item) {
         std::lock_guard<std::mutex> lock(mutex);
-        container.push_back(item);
+        container.push(item);
     }
 
     T pop_front() {
         std::unique_lock<std::mutex> lock(mutex);
-        return container.pop_front();
+        return container.pop();
     }
 };
