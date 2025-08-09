@@ -53,6 +53,7 @@
         "stack": "cpp",
         "streambuf": "cpp",
         "functional": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "future": "cpp"
     }
 }
