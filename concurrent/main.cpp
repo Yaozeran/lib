@@ -12,7 +12,7 @@ int mult(int a, int b) {
 
 int main() {
     {
-    FixedThreadPool<4> executor;
+    FixedThreadPool executor = FixedThreadPool(4);
 
     std::function<int(int, int)> sum = [] (int a, int b) -> int {
         return a + b;
@@ -21,7 +21,6 @@ int main() {
     auto res = executor.Exec(sum, 1 , 2);
     std::cout << res.get() << std::endl;
     }
-    
 
     return 0;
 };

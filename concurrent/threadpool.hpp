@@ -43,13 +43,12 @@
 
 /**
  * A fixed thread pool implementation
- * 
- * @tparam core the num of long lived fixed threads in the pool
  */
-template<size_t core>
 class FixedThreadPool {
 
 private:
+
+    const size_t core;
 
     /**
      * some operations on the map may require the stored type to be copyable or may invalidate references, 
@@ -67,7 +66,7 @@ private:
 
 public:
 
-    FixedThreadPool() : running(false) {
+    FixedThreadPool(size_t c) : core(c), running(false) {
         running = true;
         for (size_t i = 0; i < core; ++i) {
             auto threadptr = std::make_unique<std::thread>(&FixedThreadPool::threadfunc, this, i);
