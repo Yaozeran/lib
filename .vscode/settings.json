@@ -54,6 +54,7 @@
         "streambuf": "cpp",
         "functional": "cpp",
         "thread": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "iostream": "cpp"
     }
 }
