@@ -55,6 +55,7 @@
         "functional": "cpp",
         "thread": "cpp",
         "future": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "iterator": "cpp"
     }
 }
